@@ -1,0 +1,132 @@
+@ECHO OFF
+
+ECHO ****************
+ECHO * KAO2PLUS.DLL *
+ECHO ****************
+
+:: Assert output directories exist
+
+IF NOT EXIST OUT\ MD OUT
+IF NOT EXIST OUT\OBJ\ MD OUT\OBJ
+IF NOT EXIST OUT\OBJ\KAO2PLUS MD OUT\OBJ\KAO2PLUS
+
+:: Compile "KAO2PLUS\KAO2PLUS.CPP"
+
+CL.EXE /nologo ^
+    /W4 /WX /GS- /Oi %_COMPILER_FLAGS% ^
+    /arch:IA32 /std:c++20 ^
+    ^
+    /I"SOURCE" ^
+    /c /TP "SOURCE\KAO2PLUS\KAO2PLUS.CPP" ^
+    /Fo:"OUT\OBJ\KAO2PLUS\KAO2PLUS.OBJ"
+
+IF ERRORLEVEL 1 EXIT /B 1
+
+:: Compile "KAO2PLUS\DATA.CPP"
+
+CL.EXE /nologo ^
+    /W4 /WX /GS- /Oi %_COMPILER_FLAGS% ^
+    /arch:IA32 /std:c++20 ^
+    ^
+    /I"SOURCE" ^
+    /c /TP "SOURCE\KAO2PLUS\DATA.CPP" ^
+    /Fo:"OUT\OBJ\KAO2PLUS\DATA.OBJ"
+
+IF ERRORLEVEL 1 EXIT /B 1
+
+:: Compile "KAO2PLUS\HELPERS.CPP"
+
+CL.EXE /nologo ^
+    /W4 /WX /GS- /Oi %_COMPILER_FLAGS% ^
+    /arch:IA32 /std:c++20 ^
+    ^
+    /I"SOURCE" ^
+    /c /TP "SOURCE\KAO2PLUS\HELPERS.CPP" ^
+    /Fo:"OUT\OBJ\KAO2PLUS\HELPERS.OBJ"
+
+IF ERRORLEVEL 1 EXIT /B 1
+
+:: Compile "KAO2PLUS\GAME.CPP"
+
+CL.EXE /nologo ^
+    /W4 /WX /GS- /Oi %_COMPILER_FLAGS% ^
+    /arch:IA32 /std:c++20 ^
+    ^
+    /I"SOURCE" ^
+    /c /TP "SOURCE\KAO2PLUS\GAME.CPP" ^
+    /Fo:"OUT\OBJ\KAO2PLUS\GAME.OBJ"
+
+IF ERRORLEVEL 1 EXIT /B 1
+
+:: Compile "KAO2PLUS\GAME2.CPP"
+
+CL.EXE /nologo ^
+    /W4 /WX /GS- /Oi %_COMPILER_FLAGS% ^
+    /arch:IA32 /std:c++20 ^
+    ^
+    /I"SOURCE" ^
+    /c /TP "SOURCE\KAO2PLUS\GAME2.CPP" ^
+    /Fo:"OUT\OBJ\KAO2PLUS\GAME2.OBJ"
+
+IF ERRORLEVEL 1 EXIT /B 1
+
+:: Compile "KAO2PLUS\CLIENT.CPP"
+
+CL.EXE /nologo ^
+    /W4 /WX /GS- /Oi %_COMPILER_FLAGS% ^
+    /arch:IA32 /std:c++20 ^
+    ^
+    /I"SOURCE" ^
+    /c /TP "SOURCE\KAO2PLUS\CLIENT.CPP" ^
+    /Fo:"OUT\OBJ\KAO2PLUS\CLIENT.OBJ"
+
+IF ERRORLEVEL 1 EXIT /B 1
+
+:: Compile "KAO2PLUS\CLIENT2.CPP"
+
+CL.EXE /nologo ^
+    /W4 /WX /GS- /Oi %_COMPILER_FLAGS% ^
+    /arch:IA32 /std:c++20 ^
+    ^
+    /I"SOURCE" ^
+    /c /TP "SOURCE\KAO2PLUS\CLIENT2.CPP" ^
+    /Fo:"OUT\OBJ\KAO2PLUS\CLIENT2.OBJ"
+
+IF ERRORLEVEL 1 EXIT /B 1
+
+:: Compile "KAO2PLUS\CLIENT3.CPP"
+
+CL.EXE /nologo ^
+    /W4 /WX /GS- /Oi %_COMPILER_FLAGS% ^
+    /arch:IA32 /std:c++20 ^
+    ^
+    /I"SOURCE" ^
+    /c /TP "SOURCE\KAO2PLUS\CLIENT3.CPP" ^
+    /Fo:"OUT\OBJ\KAO2PLUS\CLIENT3.OBJ"
+
+IF ERRORLEVEL 1 EXIT /B 1
+
+:: Link "KAO2PLUS.DLL"
+
+LINK.EXE /NOLOGO ^
+    /EMITTOOLVERSIONINFO:NO /EMITPOGOPHASEINFO /MANIFEST:NO ^
+    /STUB:"OUT\STUBS\MZ16STUB.EXE" ^
+    /SUBSYSTEM:WINDOWS %_LINKER_FLAGS% ^
+    /NODEFAULTLIB /ENTRY:DllMain ^
+    ^
+    "KERNEL32.LIB" "USER32.LIB" "WS2_32.LIB" ^
+    ^
+    "OUT\OBJ\KAO2PLUS\KAO2PLUS.OBJ" ^
+    "OUT\OBJ\KAO2PLUS\DATA.OBJ" ^
+    "OUT\OBJ\KAO2PLUS\HELPERS.OBJ" ^
+    "OUT\OBJ\KAO2PLUS\GAME.OBJ" ^
+    "OUT\OBJ\KAO2PLUS\GAME2.OBJ" ^
+    "OUT\OBJ\KAO2PLUS\CLIENT.OBJ" ^
+    "OUT\OBJ\KAO2PLUS\CLIENT2.OBJ" ^
+    "OUT\OBJ\KAO2PLUS\CLIENT3.OBJ" ^
+    ^
+    /DLL /OUT:"OUT\KAO2PLUS.DLL"
+
+IF ERRORLEVEL 1 EXIT /B 1
+
+EXIT /B 0
